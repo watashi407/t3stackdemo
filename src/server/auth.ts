@@ -9,6 +9,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "../env.mjs";
 import { prisma } from "./db";
 import EmailProvider from "next-auth/providers/email";
+import GoogleProvider from "next-auth/providers/google"
 
 /**
  * Module augmentation for `next-auth` types.
@@ -53,21 +54,25 @@ export const authOptions: NextAuthOptions = {
 
     EmailProvider({
       server:{
-        host:process.env.EMAIL_SERVER || 'https://localhost:3000',
+        host:env.EMAIL_SERVER || 'https://localhost:3000',
         port: 587,
         auth: {
           user: 'apikey',
           pass: process.env.EMAIL_PASSWORD || " ",
         },
       },
-      from: process.env.EMAIL_FROM || "hyperteddy70@gmail.com",
-      ...(process.env.NODE_ENV != 'production' ? {
+      from: env.EMAIL_FROM || "hyperteddy70@gmail.com",
+      ...(env.NODE_ENV != 'production' ? {
         sendVerificationRequest({url}){
           console.log('Login Link Info', url)
         }
       }:{} ),
     
     }),
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET
+    })
     /**
      * ...add more providers here
      *
@@ -77,6 +82,7 @@ export const authOptions: NextAuthOptions = {
      * NextAuth.js docs for the provider you want to use. Example:
      * @see https://next-auth.js.org/providers/github
      **/
+    
   ],
 };
 
