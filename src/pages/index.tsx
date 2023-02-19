@@ -7,6 +7,7 @@ import { CreateTodo } from "../components/CreateTodo";
 import { CgToggleOn } from "react-icons/cg";
 
 
+
 import { api } from "../utils/api";
 
 function Home() {
@@ -28,9 +29,10 @@ function Home() {
               </span>
 
               {/* sign button  button */}
+             
               <button
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                onClick={sessionData ? () => void signOut() : () => void signIn('google')}
+                onClick={sessionData ? () => void signOut() : () => void signIn("google")}
               >
                 {sessionData ? <CgToggleOn/> : "Sign in"}
               </button>
@@ -46,7 +48,8 @@ function Home() {
                 className="flex flex-col gap-4 rounded-xl bg-white/10 p-4 text-white"
               >
                 <h3 className="text-xl font-bold">Todos</h3>
-                <Todos />
+              
+                <Todos/>
                 <CreateTodo />
               </div>
             </div>
